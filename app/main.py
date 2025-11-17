@@ -6,7 +6,7 @@ import warnings
 # Ignorar todos los warnings
 warnings.filterwarnings("ignore")
 
-app = FastAPI(title="PyA Integrador")
+app = FastAPI(title="St autos Backend")
 
 # 🟢 AGREGAR ESTO AQUÍ
 app.add_middleware(
