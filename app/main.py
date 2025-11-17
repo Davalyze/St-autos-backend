@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api import clientes, auth
+from app.api import auth
 from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
