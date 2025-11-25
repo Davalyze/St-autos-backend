@@ -1,7 +1,4 @@
 from app.db.postgres_manager import PostgresManager
-from app.db.connection import DatabaseManager
-
-db = DatabaseManager()
 pg = PostgresManager()
 
 import pandas as pd

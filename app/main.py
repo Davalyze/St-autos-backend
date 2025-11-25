@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api import auth
+from app.api import auth, categorias, marcas, departamentos, municipios, color, combustibles, condiciones, transmisiones
 from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
@@ -21,4 +21,13 @@ app.add_middleware(
 def health():
     return {"status": "ok"}
 
+
+app.include_router(categorias.router, prefix="/categorias", tags=["Categorías"])
+app.include_router(marcas.router, prefix="/marcas", tags=["Marcas"])
+app.include_router(departamentos.router, prefix="/departamentos", tags=["Departamentos"])
+app.include_router(municipios.router, prefix="/municipios", tags=["Municipios"])
+app.include_router(color.router, prefix="/colores", tags=["Colores"])
+app.include_router(combustibles.router, prefix="/combustibles", tags=["Combustibles"])
+app.include_router(condiciones.router, prefix="/condiciones", tags=["Condiciones"])
+app.include_router(transmisiones.router, prefix="/transmisiones", tags=["Transmisiones"])
 app.include_router(auth.router)
