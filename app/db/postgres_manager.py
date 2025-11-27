@@ -73,6 +73,20 @@ class PostgresManager:
         sql = self._read_sql(relative_path)
         self.execute_non_query(sql, params)
 
+    def execute_insert_returning_from_file(self, relative_path: str, params: dict | None = None):
+        """
+        Ejecuta un INSERT ... RETURNING y devuelve un dict.
+        """
+        sql = self._read_sql(relative_path)
+        self._connect()
+    
+        with self.connection.cursor() as cur:
+            cur.execute(sql, params or {})
+            row = cur.fetchone()     # ← AQUÍ SE LEE EL RETURNING
+            self.connection.commit()
+            return row
+
+
     def close(self):
         """
         Cierra la conexión activa.
