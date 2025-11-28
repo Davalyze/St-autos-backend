@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api import auth, categorias, marcas, departamentos, municipios, color, combustibles, condiciones, transmisiones, clientes, vehiculos
+from app.api import auth, categorias, marcas, departamentos, municipios, color, combustibles, condiciones, transmisiones, clientes, vehiculos, imagenes
 from fastapi.middleware.cors import CORSMiddleware
 import warnings
 
@@ -32,4 +32,5 @@ app.include_router(condiciones.router, prefix="/condiciones", tags=["Condiciones
 app.include_router(transmisiones.router, prefix="/transmisiones", tags=["Transmisiones"])
 app.include_router(clientes.router, prefix="/clientes", tags=["Clientes"])
 app.include_router(vehiculos.router, prefix="/vehiculos", tags=["Vehículos"])
+app.include_router(imagenes.router, prefix="/imagenes", tags=["Imagenes"])
 app.include_router(auth.router)

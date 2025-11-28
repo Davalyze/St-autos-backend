@@ -34,4 +34,5 @@ LEFT JOIN departamentos d ON d.id = v.ubi_departamento_id
 LEFT JOIN municipios mu ON mu.id = v.ubi_municipio_id
 LEFT JOIN clientes cli ON cli.id = v.id_propietario
 left join producto_imagenes as img on img.vehiculo_id = v.id
+WHERE img.es_principal = true
 ORDER BY v.created_at DESC;

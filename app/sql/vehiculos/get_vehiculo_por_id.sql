@@ -25,7 +25,9 @@ SELECT
     v.es_blindado,
     v.tiene_peritaje,
     v.observaciones,
-    v.url
+    v.url,
+
+    img.blob_name
 
 FROM vehiculos v
 LEFT JOIN marcas_vehiculo m ON m.id = v.marca_id
@@ -37,6 +39,5 @@ LEFT JOIN condiciones_vehiculo con ON con.id = v.condicion_id
 LEFT JOIN departamentos d ON d.id = v.ubi_departamento_id
 LEFT JOIN municipios mu ON mu.id = v.ubi_municipio_id
 LEFT JOIN clientes cli ON cli.id = v.id_propietario
-
-WHERE v.id = %(id)s
-LIMIT 1;
+left join producto_imagenes as img on img.vehiculo_id = v.id
+WHERE v.id = %(id)s;

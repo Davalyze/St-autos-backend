@@ -25,16 +25,41 @@ def obtener_vehiculos():
         )
     else:
         df_vehiculos['imagen_url'] = None
-    print(df_vehiculos)
+    del df_vehiculos['blob_name']
     rows = transformer.df_to_dict(df_vehiculos)
 
     return rows
 
 def obtener_vehiculo_por_id(id: int):
-    row = crud_vehiculos.obtener_vehiculo_por_id(id)
+    rows = crud_vehiculos.obtener_vehiculo_por_id(id)
 
-    if not row:
+    if not rows:
         return None
 
-    # row viene como lista de dicts porque usamos execute_query
-    return row[0]
+    # ---------------------------------------
+    # Extraer datos del vehículo (fila 0)
+    # ---------------------------------------
+    base = rows[0].copy()
+
+    # Quitamos blob_name porque ahora serán muchas imágenes
+    base.pop("blob_name", None)
+
+    # ---------------------------------------
+    # Construir lista de TODAS las imágenes
+    # ---------------------------------------
+    imagenes = []
+    for r in rows:
+        blob = r.get("blob_name")
+        if blob:
+            imagenes.append({
+                "blob_name": blob,
+                "imagen_url": azure.build_blob_url(blob)
+            })
+
+    # ---------------------------------------
+    # Añadir imágenes al detalle
+    # ---------------------------------------
+    base["imagenes"] = imagenes
+
+    return base
+
