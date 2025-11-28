@@ -18,13 +18,14 @@ def obtener_vehiculos():
     Obtiene todos los vehículos completos para el catálogo.
     """
     rows = crud_vehiculos.obtener_vehiculos()
-    df_vehiculos = transformer.rows_to_dataframe(rows)
+    df_vehiculos = transformer.sql_to_df(rows)
     if 'blob_name' in df_vehiculos.columns:
         df_vehiculos['imagen_url'] = df_vehiculos['blob_name'].apply(
             lambda x: azure.build_blob_url(x) if x else None
         )
     else:
         df_vehiculos['imagen_url'] = None
+    print(df_vehiculos)
     rows = transformer.df_to_dict(df_vehiculos)
 
     return rows

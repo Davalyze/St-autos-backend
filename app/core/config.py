@@ -16,7 +16,12 @@ class Settings(BaseSettings):
     SECRET_KEY: str
     JWT_ALGORITHM: str = "HS256"
     JWT_EXP_HOURS: int = 12
-
+    
+    
+    AZURE_STORAGE_ACCOUNT_NAME: str
+    AZURE_STORAGE_ACCOUNT_KEY: str
+    AZURE_STORAGE_CONTAINER: str
+    AZURE_STORAGE_ENDPOINT_SUFFIX: str = "core.windows.net"
     class Config:
         env_file = ".env"
         env_file_encoding = "utf-8"
