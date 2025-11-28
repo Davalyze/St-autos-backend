@@ -21,8 +21,8 @@ SELECT
     mu.nombre AS municipio,
 
     -- PROPIETARIO
-    cli.nombre_completo AS propietario
-
+    cli.nombre_completo AS propietario,
+	img.blob_name
 FROM vehiculos v
 LEFT JOIN marcas_vehiculo m ON m.id = v.marca_id
 LEFT JOIN categorias_vehiculo c ON c.id = v.categoria_id
@@ -33,5 +33,5 @@ LEFT JOIN condiciones_vehiculo con ON con.id = v.condicion_id
 LEFT JOIN departamentos d ON d.id = v.ubi_departamento_id
 LEFT JOIN municipios mu ON mu.id = v.ubi_municipio_id
 LEFT JOIN clientes cli ON cli.id = v.id_propietario
-
+left join producto_imagenes as img on img.vehiculo_id = v.id
 ORDER BY v.created_at DESC;
