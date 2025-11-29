@@ -2,20 +2,18 @@ from app.db.postgres_manager import PostgresManager
 
 
 # -------------------------------------------------------
-# 📋 1. Obtener todos los pedidos
+# 📋 1. Obtener pedidos
 # -------------------------------------------------------
 def obtener_pedidos():
     pg = PostgresManager()
     try:
-        return pg.execute_query_from_file(
-            "pedidos/get_pedidos.sql"
-        )
+        return pg.execute_query_from_file("pedidos/get_pedidos.sql")
     finally:
         pg.close()
 
 
 # -------------------------------------------------------
-# 🆕 2. Crear un pedido
+# 🆕 2. Crear pedido
 # -------------------------------------------------------
 def crear_pedido(id_cliente: int, pedido: str):
     pg = PostgresManager()
@@ -32,12 +30,12 @@ def crear_pedido(id_cliente: int, pedido: str):
 
 
 # -------------------------------------------------------
-# 🔄 3. Cambiar estado (pendiente → resuelto)
+# 🔄 3. Actualizar estado del pedido (pendiente → resuelto)
 # -------------------------------------------------------
-def actualizar_estado_pedido(id: int, resuelto: bool):
+def actualizar_estado(id: int, resuelto: bool):
     pg = PostgresManager()
     try:
-        return pg.execute_non_query_from_file(
+        return pg.execute_insert_returning_from_file(
             "pedidos/update_estado_pedido.sql",
             {
                 "id": id,
