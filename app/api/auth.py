@@ -28,8 +28,8 @@ def create_token(data: dict):
 # 🔹 Endpoint de login
 @router.post("/login")
 def login_user(req: LoginRequest):
-    db = PostgresManager()
     print("🔐 Intento de login para usuario:", req.username)
+    db = PostgresManager()
     try:
         # 🧩 Obtener usuario y empresa
         sql_user = """
