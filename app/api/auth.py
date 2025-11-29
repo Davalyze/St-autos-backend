@@ -29,7 +29,7 @@ def create_token(data: dict):
 @router.post("/login")
 def login_user(req: LoginRequest):
     db = PostgresManager()
-
+    print("🔐 Intento de login para usuario:", req.username)
     try:
         # 🧩 Obtener usuario y empresa
         sql_user = """
@@ -72,6 +72,14 @@ def login_user(req: LoginRequest):
         })
 
         # 📦 Respuesta
+        print("✅ Login exitoso para usuario:", {
+            "token": token,
+            "username": user["username"],
+            "nombre": user["nombre"],
+            "rol": user["rol"],
+            "empresa_nombre": user["empresa_nombre"],
+            "modulos": modulos_lista
+            })
         return {
             "token": token,
             "username": user["username"],
