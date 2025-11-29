@@ -1,47 +1,30 @@
 from app.db.postgres_manager import PostgresManager
 
-
 # -------------------------------------------------------
-# 📋 1. Obtener todos los pedidos
+# 🔍 Buscar cliente por contacto_1
 # -------------------------------------------------------
-def obtener_pedidos():
+def get_cliente_por_contacto(contacto_1: str):
     pg = PostgresManager()
     try:
         return pg.execute_query_from_file(
-            "pedidos/get_pedidos.sql"
+            "clientes/get_cliente_por_contacto.sql",
+            {"contacto_1": contacto_1}
         )
     finally:
         pg.close()
 
 
 # -------------------------------------------------------
-# 🆕 2. Crear un pedido
+# 🆕 Crear cliente
 # -------------------------------------------------------
-def crear_pedido(id_cliente: int, pedido: str):
+def crear_cliente(nombre_completo: str, contacto_1: str):
     pg = PostgresManager()
     try:
         return pg.execute_insert_returning_from_file(
-            "pedidos/insert_pedido.sql",
+            "clientes/insert_cliente.sql",
             {
-                "id_cliente": id_cliente,
-                "pedido": pedido
-            }
-        )
-    finally:
-        pg.close()
-
-
-# -------------------------------------------------------
-# 🔄 3. Cambiar estado (pendiente → resuelto)
-# -------------------------------------------------------
-def actualizar_estado_pedido(id: int, resuelto: bool):
-    pg = PostgresManager()
-    try:
-        return pg.execute_non_query_from_file(
-            "pedidos/update_estado_pedido.sql",
-            {
-                "id": id,
-                "resuelto": resuelto
+                "nombre_completo": nombre_completo,
+                "contacto_1": contacto_1
             }
         )
     finally:
